@@ -86,26 +86,26 @@ Original Tetra license notice:
     SOFTWARE.
 """
 
-# Standard imports:
-from pathlib import Path
 import csv
-import logging
 import itertools
-from time import perf_counter as precision_timestamp
+import logging
+import math
 from datetime import datetime
 from numbers import Number
+# Standard imports:
+from pathlib import Path
+from time import perf_counter as precision_timestamp
 
 # External imports:
 import numpy as np
-from numpy.linalg import norm, lstsq
+import scipy
 import scipy.ndimage
 import scipy.optimize
 import scipy.stats
-import scipy
-from scipy.spatial import KDTree
-from scipy.spatial.distance import pdist, cdist
-
+from numpy.linalg import lstsq, norm
 from PIL import Image, ImageDraw
+from scipy.spatial import KDTree
+from scipy.spatial.distance import cdist, pdist
 
 _MAGIC_RAND = np.uint64(2654435761)
 _supported_databases = ('bsc5', 'hip_main', 'tyc_main')
@@ -1392,7 +1392,7 @@ class Tetra3():
 
             # Now find the possible range of edge ratio patterns these four image centroids
             # could correspond to.
-            pattlen = int(np.math.factorial(p_size) / 2 / np.math.factorial(p_size - 2) - 1)
+            pattlen = int(math.factorial(p_size) / 2 / math.factorial(p_size - 2) - 1)
             image_pattern_edge_ratio_min = np.ones(pattlen)
             image_pattern_edge_ratio_max = np.zeros(pattlen)
 
